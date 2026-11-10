@@ -1,104 +1,58 @@
 
-"""
-CLOUDE AI
-Central Configuration
-Version 0.1.0
-"""
-
 from pathlib import Path
 
-
 # ==========================================
-# APPLICATION
+# CLOUDE AI CONFIGURATION
 # ==========================================
 
 APP_NAME = "Cloude AI"
-APP_VERSION = "0.1.0"
-APP_AUTHOR = "Cloude Development"
-
-
-# ==========================================
-# PROJECT ROOT
-# ==========================================
+APP_VERSION = "0.2.0"
 
 ROOT_DIR = Path(__file__).resolve().parent
 
-CORE_DIR = ROOT_DIR / "core"
-LANGUAGE_DIR = ROOT_DIR / "language"
-INTELLIGENCE_DIR = ROOT_DIR / "intelligence"
-MEMORY_DIR = ROOT_DIR / "memory"
-KNOWLEDGE_DIR = ROOT_DIR / "knowledge"
-TRAINING_DIR = ROOT_DIR / "training"
-STORAGE_DIR = ROOT_DIR / "storage"
-TEST_DIR = ROOT_DIR / "tests"
-
-
 # ==========================================
-# LANGUAGE
+# CENTRAL DATA DIRECTORY
 # ==========================================
 
-DEFAULT_LANGUAGE = "de"
+DATA_DIR = ROOT_DIR / "DATA"
 
-SUPPORTED_LANGUAGES = [
-    "de",
-    "en"
-]
-
-
-# ==========================================
-# RESPONSE GENERATION
-# ==========================================
-
-GENERATION = {
-    "temperature": 0.85,
-    "max_response_length": 1000,
-    "repetition_penalty": 1.15,
-    "response_variation": True,
-    "creative_generation": True
-}
-
+LANGUAGE_DATA_DIR = DATA_DIR / "language"
+KNOWLEDGE_DATA_DIR = DATA_DIR / "knowledge"
+TRAINING_DATA_DIR = DATA_DIR / "training"
+MEMORY_DATA_DIR = DATA_DIR / "memory"
 
 # ==========================================
-# MEMORY
+# LANGUAGE FILES
 # ==========================================
 
-MEMORY = {
-    "enabled": True,
-    "short_term": True,
-    "long_term": True,
-    "max_history": 100,
-    "save_conversations": True
-}
-
+VOCABULARY_FILE = LANGUAGE_DATA_DIR / "vocabulary.json"
+GRAMMAR_FILE = LANGUAGE_DATA_DIR / "grammar.json"
+SYNONYMS_FILE = LANGUAGE_DATA_DIR / "synonyms.json"
+MEANINGS_FILE = LANGUAGE_DATA_DIR / "meanings.json"
 
 # ==========================================
-# LANGUAGE PROCESSING
+# KNOWLEDGE FILES
 # ==========================================
 
-LANGUAGE_PROCESSING = {
-    "tokenization": True,
-    "syntax_analysis": True,
-    "semantic_analysis": True,
-    "grammar_analysis": True,
-    "context_analysis": True
-}
-
+FACTS_FILE = KNOWLEDGE_DATA_DIR / "facts.json"
+CONCEPTS_FILE = KNOWLEDGE_DATA_DIR / "concepts.json"
+RELATIONSHIPS_FILE = KNOWLEDGE_DATA_DIR / "relationships.json"
 
 # ==========================================
-# INTELLIGENCE
+# TRAINING FILES
 # ==========================================
 
-INTELLIGENCE = {
-    "reasoning": True,
-    "planning": True,
-    "inference": True,
-    "problem_solving": True,
-    "learning": False
-}
-
+SENTENCES_FILE = TRAINING_DATA_DIR / "sentences.json"
+EXAMPLES_FILE = TRAINING_DATA_DIR / "examples.json"
 
 # ==========================================
-# SYSTEM
+# MEMORY FILES
+# ==========================================
+
+CONVERSATIONS_FILE = MEMORY_DATA_DIR / "conversations.json"
+
+# ==========================================
+# SYSTEM SETTINGS
 # ==========================================
 
 SYSTEM = {
@@ -108,20 +62,23 @@ SYSTEM = {
     "debug": True
 }
 
+GENERATION = {
+    "temperature": 0.85,
+    "max_response_length": 1000,
+    "repetition_penalty": 1.15
+}
+
 
 # ==========================================
 # DIRECTORY INITIALIZATION
 # ==========================================
 
 DIRECTORIES = [
-    CORE_DIR,
-    LANGUAGE_DIR,
-    INTELLIGENCE_DIR,
-    MEMORY_DIR,
-    KNOWLEDGE_DIR,
-    TRAINING_DIR,
-    STORAGE_DIR,
-    TEST_DIR
+    DATA_DIR,
+    LANGUAGE_DATA_DIR,
+    KNOWLEDGE_DATA_DIR,
+    TRAINING_DATA_DIR,
+    MEMORY_DATA_DIR
 ]
 
 
@@ -134,20 +91,12 @@ def initialize_directories():
         )
 
 
-# ==========================================
-# CONFIGURATION VALIDATION
-# ==========================================
-
 def validate_configuration():
 
     assert APP_NAME
     assert APP_VERSION
 
-    assert 0 <= GENERATION["temperature"] <= 2
-
     assert GENERATION["max_response_length"] > 0
-
-    assert MEMORY["max_history"] > 0
 
     return True
 
@@ -155,6 +104,7 @@ def validate_configuration():
 def initialize():
 
     initialize_directories()
+
     validate_configuration()
 
     return True
